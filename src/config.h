@@ -39,6 +39,11 @@ namespace config {
     int hevc_mode;
     int av1_mode;
 
+    // When true, advertise only the PyroWave codec to clients (suppress
+    // H.264/HEVC/AV1), forcing PyroWave-capable clients onto it. No effect
+    // unless Sunshine was built with the PyroWave codec enabled.
+    bool force_pyrowave;
+
     int min_threads;  // Minimum number of threads/slices for CPU encoding
 
     struct {

@@ -815,6 +815,10 @@ namespace rtsp_stream {
       ss << "a=rtpmap:98 AV1/90000"sv << std::endl;
     }
 
+    if (video::active_pyrowave_mode >= 2) {
+      ss << "a=rtpmap:99 PYROWAVE/90000"sv << std::endl;
+    }
+
     if (!session.surround_params.empty()) {
       // If we have our own surround parameters, advertise them twice first
       ss << "a=fmtp:97 surround-params="sv << session.surround_params << std::endl;
@@ -1124,6 +1128,13 @@ namespace rtsp_stream {
 
     if (config.monitor.videoFormat == 2 && video::active_av1_mode == 1) {
       BOOST_LOG(warning) << "AV1 is disabled, yet the client requested AV1"sv;
+
+      respond(sock, session, &option, 400, "BAD REQUEST", req->sequenceNumber, {});
+      return;
+    }
+
+    if (config.monitor.videoFormat == 3 && video::active_pyrowave_mode < 2) {
+      BOOST_LOG(warning) << "PyroWave is disabled, yet the client requested PyroWave"sv;
 
       respond(sock, session, &option, 400, "BAD REQUEST", req->sequenceNumber, {});
       return;

@@ -763,6 +763,13 @@ namespace nvhttp {
         codec_mode_flags |= SCM_AV1_HIGH10_444;
       }
     }
+    if (video::active_pyrowave_mode >= 2) {
+      codec_mode_flags |= SCM_PYROWAVE;
+    }
+    // When forcing PyroWave, report only it so clients don't fall back to other codecs.
+    if (config::video.force_pyrowave && video::active_pyrowave_mode >= 2) {
+      codec_mode_flags = SCM_PYROWAVE;
+    }
     tree.put("root.ServerCodecModeSupport", codec_mode_flags);
 
     if (!config::nvhttp.external_ip.empty()) {
