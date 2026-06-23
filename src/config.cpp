@@ -542,7 +542,7 @@ namespace config {
 
     APPS_JSON_PATH,
 
-    20,  // fecPercentage
+    25,  // fecPercentage (raised from 20 to match pyrofling's ~25% for better loss recovery on lossy links)
 
     ENCRYPTION_MODE_NEVER,  // lan_encryption_mode
     ENCRYPTION_MODE_OPPORTUNISTIC,  // wan_encryption_mode
